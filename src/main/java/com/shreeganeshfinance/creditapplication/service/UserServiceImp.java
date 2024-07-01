@@ -34,6 +34,7 @@ public class UserServiceImp implements  UserService{
         User savedUser =  userRepository.save(user);
         Account account = new Account();
         account.setUser(user);
+        account.setBalance(0.00);
         accountRepository.save(account);
         return savedUser;
     }
