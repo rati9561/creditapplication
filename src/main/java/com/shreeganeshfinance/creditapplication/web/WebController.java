@@ -35,7 +35,7 @@ public class WebController {
     }
 
     @GetMapping("/test")
-    public String getMethodName() {
+    public String getHome() {
         return "test";
     }
     
