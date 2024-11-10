@@ -33,6 +33,11 @@ public class WebController {
     public String getMethodName() {
         return "test";
     }
+
+    @GetMapping("/test")
+    public String getMethodName() {
+        return "test";
+    }
     
     @PostMapping("/register")
     public ResponseEntity<User> postMethodName(@Valid @RequestBody User user) {
