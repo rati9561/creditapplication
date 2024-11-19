@@ -46,6 +46,12 @@ jobs:
         curl -L -o launch4j.zip https://sourceforge.net/projects/launch4j/files/launch4j-3/3.50/launch4j-3.50-linux.tgz/download
         tar -xvf launch4j.zip -C launch4j --strip-components=1
 
+    # Fix line endings for Launch4j script
+    - name: Convert line endings
+      run: |
+        sed -i 's/\r$//' launch4j/launch4j
+        chmod +x launch4j/launch4j
+
     # Use Launch4j to create EXE
     - name: Create EXE
       run: |
