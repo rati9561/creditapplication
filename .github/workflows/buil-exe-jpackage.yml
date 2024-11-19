@@ -1,11 +1,14 @@
 name: Build EXE with jpackage
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-2019  # Use the Windows 2019 runner
 
     steps:
     # Checkout the code
@@ -19,18 +22,25 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    # Build the application
+    # Build the application JAR
     - name: Build JAR
       run: |
         mvn clean package
-        mkdir -p dist
+        mkdir dist
         copy target\*.jar dist\app.jar
 
     # Create EXE using jpackage
     - name: Create EXE
       run: |
         mkdir dist\output
-        "%JAVA_HOME%\bin\jpackage" --type exe --input dist --main-jar app.jar --main-class com.example.Main --name MyApp --runtime-image "%JAVA_HOME%" --output dist\output
+        "%JAVA_HOME%\bin\jpackage" ^
+          --type exe ^
+          --input dist ^
+          --main-jar app.jar ^
+          --main-class com.example.Main ^
+          --name MyApp ^
+          --runtime-image "%JAVA_HOME%" ^
+          --output dist\output
 
     # Upload the EXE as an artifact
     - name: Upload EXE
