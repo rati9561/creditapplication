@@ -39,12 +39,14 @@ jobs:
         mv dist/jre_temp/*/* dist/jre
         rm -rf dist/jre_temp
 
-    # Use Launch4j to create EXE
-    - name: Install Launch4j
+    # Download Launch4j standalone
+    - name: Download Launch4j
       run: |
-        sudo apt-get update
-        sudo apt-get install -y launch4j
+        mkdir -p launch4j
+        curl -L -o launch4j.zip https://sourceforge.net/projects/launch4j/files/launch4j-3/3.14/launch4j-3.14-linux.tar.gz
+        tar -xvf launch4j.zip -C launch4j --strip-components=1
 
+    # Use Launch4j to create EXE
     - name: Create EXE
       run: |
         echo '<launch4jConfig>
@@ -54,7 +56,7 @@ jobs:
           <minVersion>17</minVersion>
           <maxVersion>17</maxVersion>
         </launch4jConfig>' > launch4j-config.xml
-        launch4j launch4j-config.xml
+        ./launch4j/launch4j launch4j-config.xml
 
     # Upload the EXE as an artifact
     - name: Upload EXE
