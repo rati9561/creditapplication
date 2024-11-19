@@ -37,8 +37,8 @@ jobs:
     - name: Download JRE 17
       run: |
         mkdir -p dist/jre
-        curl -L -o openjdk17.tar.gz https://download.java.net/java/GA/jdk17/latest/binaries/openjdk-17_windows-x64_bin.tar.gz
-        tar -xvf openjdk17.tar.gz --strip-components=1 -C dist/jre
+        curl -L -o openjdk17.zip https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.8.1+1/OpenJDK17U-jre_x64_windows_hotspot_17.0.8.1_1.zip
+        unzip openjdk17.zip -d dist/jre --strip-components=1
 
     # Use Launch4j to create EXE
     - name: Install Launch4j
