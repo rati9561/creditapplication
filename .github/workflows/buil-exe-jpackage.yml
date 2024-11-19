@@ -47,4 +47,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: app-exe
-        path: D:\a\creditapplication\creditapplication\dist\MyApp.exe
+        path: D:\a\creditapplication\creditapplication\MyApp-1.0.exe
