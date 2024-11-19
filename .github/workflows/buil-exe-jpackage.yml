@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-2019  # Use the Windows 2019 runner
+    runs-on: windows-2019  # Use Windows 2019 runner
 
     steps:
     # Checkout the code
@@ -29,11 +29,17 @@ jobs:
         mkdir dist
         copy target\*.jar dist\app.jar
 
+    # Check if JAVA_HOME is correct
+    - name: Print JAVA_HOME
+      run: echo $Env:JAVA_HOME
+
     # Create EXE using jpackage
     - name: Create EXE
       run: |
         mkdir dist\output
-        "%JAVA_HOME%\bin\jpackage" --type exe --input dist --main-jar app.jar --main-class com.example.Main --name MyApp --runtime-image "%JAVA_HOME%" --output dist\output
+        $jpackagePath = "$Env:JAVA_HOME\bin\jpackage"
+        Write-Host "Using jpackage at: $jpackagePath"
+        & $jpackagePath --type exe --input dist --main-jar app.jar --main-class com.example.Main --name MyApp --runtime-image $Env:JAVA_HOME --output dist\output
 
     # Upload the EXE as an artifact
     - name: Upload EXE
