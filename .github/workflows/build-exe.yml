@@ -58,7 +58,8 @@ jobs:
         echo '<launch4jConfig>
           <jar>dist/app.jar</jar>
           <outfile>dist/app.exe</outfile>
-          <jrePath>dist/jre</jrePath>
+          <bundledJrePath>dist/jre</bundledJrePath>
+          <bundledJre64Bit>true</bundledJre64Bit>
           <minVersion>17</minVersion>
           <maxVersion>17</maxVersion>
         </launch4jConfig>' > launch4j-config.xml
