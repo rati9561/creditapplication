@@ -1,0 +1,47 @@
+name: Build EXE with jpackage
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    # Checkout the code
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Set up JDK 17
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    # Build the application
+    - name: Build JAR
+      run: |
+        mvn clean package
+        mkdir -p dist
+        copy target\*.jar dist\app.jar
+
+    # Create EXE using jpackage
+    - name: Create EXE
+      run: |
+        mkdir -p dist/output
+        jpackage \
+          --type exe \
+          --input dist \
+          --main-jar app.jar \
+          --main-class com.example.Main \
+          --name MyApp \
+          --runtime-image %JAVA_HOME% \
+          --output dist/output
+
+    # Upload the EXE as an artifact
+    - name: Upload EXE
+      uses: actions/upload-artifact@v3
+      with:
+        name: app-exe
+        path: dist/output/MyApp.exe
