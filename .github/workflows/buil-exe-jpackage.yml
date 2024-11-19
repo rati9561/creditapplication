@@ -39,7 +39,7 @@ jobs:
         mkdir dist\output
         $jpackagePath = "$Env:JAVA_HOME\bin\jpackage"
         Write-Host "Using jpackage at: $jpackagePath"
-        & $jpackagePath --type exe --input dist --main-jar app.jar --main-class com.example.Main --name MyApp --runtime-image $Env:JAVA_HOME --output dist\output
+        & $jpackagePath --type exe --input dist --main-jar app.jar --main-class com.example.Main --name MyApp --runtime-image $Env:JAVA_HOME
 
     # Upload the EXE as an artifact
     - name: Upload EXE
