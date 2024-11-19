@@ -15,6 +15,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    # Grant execute permissions to Maven Wrapper
+    - name: Make mvnw executable
+      run: chmod +x ./mvnw
+
     # Set up JDK 17
     - name: Set up JDK 17
       uses: actions/setup-java@v3
