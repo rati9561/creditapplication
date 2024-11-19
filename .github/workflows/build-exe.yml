@@ -43,7 +43,7 @@ jobs:
     - name: Download Launch4j
       run: |
         mkdir -p launch4j
-        curl -L -o launch4j.zip https://sourceforge.net/projects/launch4j/files/launch4j-3/3.14/launch4j-3.14-linux.tar.gz
+        curl -L -o launch4j.zip https://sourceforge.net/projects/launch4j/files/launch4j-3/3.50/launch4j-3.50-linux.tgz/download
         tar -xvf launch4j.zip -C launch4j --strip-components=1
 
     # Use Launch4j to create EXE
