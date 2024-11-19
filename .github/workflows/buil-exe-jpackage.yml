@@ -33,14 +33,7 @@ jobs:
     - name: Create EXE
       run: |
         mkdir dist\output
-        "%JAVA_HOME%\bin\jpackage" \
-          --type exe \
-          --input dist \
-          --main-jar app.jar \
-          --main-class com.example.Main \
-          --name MyApp ^
-          --runtime-image "%JAVA_HOME%" \
-          --output dist\output
+        "%JAVA_HOME%\bin\jpackage" --type exe --input dist --main-jar app.jar --main-class com.example.Main --name MyApp --runtime-image "%JAVA_HOME%" --output dist\output
 
     # Upload the EXE as an artifact
     - name: Upload EXE
