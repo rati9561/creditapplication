@@ -38,7 +38,7 @@ jobs:
       run: |
         mkdir -p dist/jre
         curl -L -o openjdk17.zip https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.8.1+1/OpenJDK17U-jre_x64_windows_hotspot_17.0.8.1_1.zip
-        unzip openjdk17.zip -d dist/jre --strip-components=1
+        unzip OpenJDK17U-jre_x64_windows_hotspot_17.0.8.1_1.zip -d dist/jre --strip-components=1
 
     # Use Launch4j to create EXE
     - name: Install Launch4j
