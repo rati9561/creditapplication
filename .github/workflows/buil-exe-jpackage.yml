@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: kubernetese  # Use Windows 2019 runner
+    runs-on: windows-2019  # Use Windows 2019 runner
 
     steps:
     # Checkout the code
