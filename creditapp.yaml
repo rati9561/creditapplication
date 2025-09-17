@@ -56,16 +56,20 @@ metadata:
   name: creditapp-ingress
   namespace: creditapp
   annotations:
-    kubernetes.io/ingress.class: traefik
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
+  tls:
+  - hosts:
+      - creditapp.rch.crazylazy.online
+    secretName: creditapp-tls
   rules:
-    - host: creditapp.rch.crazylazy.online
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: creditapp
-                port:
-                  number: 80
+  - host: creditapp.rch.crazylazy.online
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: creditapp-service
+            port:
+              number: 80
