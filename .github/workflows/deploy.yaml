@@ -1,0 +1,32 @@
+name: Deploy CreditApp to K3s
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install kubectl
+        run: |
+          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+          chmod +x kubectl
+          sudo mv kubectl /usr/local/bin/
+
+      - name: Set up kubeconfig
+        run: |
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBE_SECRET }}" > $HOME/.kube/config
+
+      - name: Create Docker config json for imagePullSecret
+        run: |
+          echo "{\"auths\": {\"https://index.docker.io/v1/\": {\"username\": \"${{ secrets.JFROG_USERNAME }}\", \"password\": \"${{ secrets.JFROG_PASS }}\", \"auth\": \"$(echo -n \"${{ secrets.JFROG_USERNAME }}:${{ secrets.JFROG_PASS }}\" | base64)\"}}}" > .dockerconfigjson
+          kubectl -n creditapp delete secret regcred --ignore-not-found
+          kubectl -n creditapp create secret generic regcred --from-file=.dockerconfigjson=.dockerconfigjson --type=kubernetes.io/dockerconfigjson
+
+      - name: Apply manifests
+        run: |
+          kubectl apply -f creditapp.yaml
