@@ -19,7 +19,8 @@ jobs:
       - name: Set up kubeconfig
         run: |
           mkdir -p $HOME/.kube
-          echo "${{ secrets.KUBE_SECRET }}" > $HOME/.kube/config
+          printf "%s" "${{ secrets.KUBE_SECRET }}" > $HOME/.kube/config
+
 
       - name: Create Docker config json for imagePullSecret
         run: |
